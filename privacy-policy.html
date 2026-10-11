@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Block Blast — Privacy Policy</title>
+  <meta name="description" content="Official Privacy Policy for Block Blast. Disclosures on local data storage, optional analytics, advertising, and player consent choices.">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="index.html" class="brand">
+        <div class="brand-icon">B</div>
+        <div class="brand-name">Block Blast</div>
+      </a>
+      <nav class="main-nav" aria-label="Main Navigation">
+        <a href="index.html">Overview</a>
+        <a href="privacy-policy.html" class="active">Privacy Policy</a>
+        <a href="terms-of-use.html">Terms of Use</a>
+        <a href="support.html">Support</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="content-container">
+    <div class="doc-card">
+      <h1>Privacy Policy</h1>
+
+      <div class="doc-meta">
+        <span><strong>Effective Date:</strong> October 11, 2026</span>
+        <span><strong>Last Updated:</strong> October 11, 2026</span>
+        <span><strong>Version:</strong> 1.0 (Audit Baseline)</span>
+        <span><strong>Application:</strong> Block Blast (com.yashtrivedi.blockblast)</span>
+        <span><strong>Studio Credit:</strong> TheBU</span>
+      </div>
+
+      <div class="callout callout-note">
+        <strong>Audit Baseline &amp; Verification Notice</strong>
+        This Privacy Policy is compiled from the architectural audit of the Block Blast game code (Phase 4.8 / 4.9). While accurate to the inspected design, final release values, live ad unit IDs, and production service toggles must be re-confirmed against the private game repository prior to Google Play publication.
+      </div>
+
+      <h2>1. Introduction &amp; Identity</h2>
+      <p>This Privacy Policy explains how <strong>Block Blast</strong> ("the Game", package identifier <code>com.yashtrivedi.blockblast</code>) for Android handles player data. The Game is developed and published under the studio credit <strong>TheBU</strong> ("we", "us", or "our").</p>
+      <p>Our guiding principle is offline-first single-player enjoyment. We minimize data collection, operate without player accounts, store game progress directly on your device, and ensure that optional telemetry is strictly governed by your explicit consent.</p>
+
+      <h2>2. Information We Do NOT Collect</h2>
+      <p>Based on our repository audit, the Game does not collect, request, or maintain the following categories of data:</p>
+      <ul>
+        <li><strong>No Player Accounts:</strong> No account creation, login, email registration, passwords, or social network sign-in.</li>
+        <li><strong>No Personal Identification Details:</strong> We do not ask for your real name, mailing address, personal telephone number, or government identifiers.</li>
+        <li><strong>No Financial or Payment Information:</strong> The Game contains no in-app purchases (IAP). We do not collect or store credit card, banking, or billing details.</li>
+        <li><strong>No Precise Location Data:</strong> The Game does not request or use Android location permissions (GPS / coarse location are disabled in the export manifest).</li>
+        <li><strong>No Hardware Sensor or Media Access:</strong> The Game does not access your camera, microphone, photo gallery, media files, or contact list.</li>
+      </ul>
+
+      <h2>3. Locally Stored Game Data</h2>
+      <p>Block Blast saves your gameplay progress locally within your Android device's private application storage:</p>
+      <ul>
+        <li><strong>User Preferences:</strong> Audio toggles (sound effects on/off) and haptic vibration feedback (enabled/disabled).</li>
+        <li><strong>Puzzle Progress:</strong> Classic mode high scores and session records, unlocked Adventure chapters and levels (levels 1–60 across Chapters 1–2), star ratings (1–3 stars per level), and in-game achievement unlocks.</li>
+        <li><strong>Consent Preferences:</strong> Your selected telemetry choice (stored locally as Undecided, Allowed, or Denied).</li>
+      </ul>
+      <p>This information is stored in local files (such as <code>user://player_data.json</code> and <code>user://privacy_consent.json</code>). <strong>We do not maintain a cloud save backend or remote player database.</strong> If you clear the Game's data in your Android device settings or uninstall the Game, your locally stored progress is permanently deleted.</p>
+
+      <h2>4. Optional Telemetry &amp; Analytics (Consent-Gated)</h2>
+      <p>The Game architecture integrates diagnostic telemetry adapters (including Google Firebase Analytics and a lightweight PostHog capture provider) to understand game stability and puzzle balance.</p>
+      <div class="callout callout-info">
+        <strong>Strict Consent Gate:</strong> In the current implementation, analytics collection is <strong>disabled by default</strong>. It only records or transmits events if you explicitly select <strong>"Allow Analytics"</strong> in the in-game Settings screen. If you select "Deny Analytics" or have not made a choice, outbound telemetry is blocked.
+      </div>
+      <p>When telemetry is explicitly authorized by you, the Game reports strictly allowlisted technical events:</p>
+      <ul>
+        <li><code>app_open</code>: Game session launch.</li>
+        <li><code>classic_game_started</code>, <code>classic_game_completed</code>, <code>classic_game_over</code>: Classic puzzle start, end, score, and high score.</li>
+        <li><code>adventure_level_started</code>, <code>adventure_level_completed</code>, <code>adventure_level_failed</code>: Adventure level number, chapter, score, and stars earned.</li>
+        <li><code>rewarded_continue_requested</code>, <code>rewarded_continue_completed</code>, <code>rewarded_continue_failed</code>: Rewarded continue video lifecycle.</li>
+        <li><code>interstitial_*</code>, <code>banner_*</code>: Display lifecycle for menu banners and transition interstitials.</li>
+      </ul>
+      <p><strong>Associated Technical Fields:</strong> Events include only non-personal parameters: an ephemeral random session UUID (refreshed each session), platform (<code>Android</code>), app version (<code>0.1.0</code>), and build environment. IP geolocation and user profiling are explicitly disabled in our collection pipeline (<code>$geoip_disable=true</code>, <code>$process_person_profile=false</code>).</p>
+
+      <h2>5. Crash &amp; Error Monitoring</h2>
+      <p>The codebase includes an integration for Sentry crash and error monitoring, designed to diagnose native engine failures and script exceptions:</p>
+      <ul>
+        <li><strong>Configuration State:</strong> In the current repository configuration, crash monitoring is set to disabled (<code>enabled=false</code>) and requires active owner DSN configuration as well as explicit player consent (<code>Allow Analytics</code>).</li>
+        <li><strong>Data Minimization:</strong> When active, user identification is cleared (<code>remove_user()</code>), automatic device IDs are removed and replaced with general hardware categories (model, manufacturer, architecture), and sensitive attachments (screenshots, logs, breadcrumbs, visual scene trees) are turned off.</li>
+        <li><strong>Filtered Diagnostics:</strong> Only standardized failure codes (e.g. <code>save_failed</code>, <code>configuration_failed</code>, <code>runtime_error</code>) and engine script stack locations are captured to fix crashes.</li>
+      </ul>
+
+      <h2>6. In-App Advertising &amp; Google AdMob</h2>
+      <p>Block Blast displays third-party advertisements delivered by <strong>Google AdMob</strong> to support development:</p>
+      <ul>
+        <li><strong>Adaptive Banners:</strong> Displayed on select menu or pause screens.</li>
+        <li><strong>Interstitial Ads:</strong> Full-screen advertisements displayed at natural transition pauses (such as completing an Adventure level or concluding a game).</li>
+        <li><strong>Rewarded Continue Ads:</strong> Entirely voluntary and opt-in. When a game ends, you may choose to watch a rewarded video ad to continue the puzzle. Players are never required to watch ads to conclude a game.</li>
+      </ul>
+      <p><strong>Consent Management (Google UMP):</strong> In jurisdictions where required by law (such as the EEA, UK, and Switzerland), ad consent is gathered via Google's User Messaging Platform (UMP). Players can review or modify their advertising choices at any time via the <strong>"Advertising Choices"</strong> button in the in-game Settings screen.</p>
+      <p><strong>Device Identifiers:</strong> Google Mobile Ads SDK and Google Play Services may process your device's Android Advertising ID (AAID) and technical hardware signals in accordance with Google's policies and your Android system privacy settings. The Game's own code does not directly read, log, or transmit your Advertising ID.</p>
+
+      <h2>7. Third-Party Service Providers</h2>
+      <p>The following third-party services may process technical data when enabled and authorized:</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Provider</th>
+              <th>Role in Game</th>
+              <th>Official Privacy Policy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Google AdMob &amp; UMP</strong></td>
+              <td>Google LLC</td>
+              <td>In-app advertising and consent management</td>
+              <td><a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer">Google Ads Privacy</a></td>
+            </tr>
+            <tr>
+              <td><strong>Google Play Services</strong></td>
+              <td>Google LLC</td>
+              <td>Android platform libraries and runtime</td>
+              <td><a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a></td>
+            </tr>
+            <tr>
+              <td><strong>Firebase Analytics</strong></td>
+              <td>Google LLC</td>
+              <td>Aggregated gameplay telemetry (optional / consent-gated)</td>
+              <td><a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener noreferrer">Firebase Privacy</a></td>
+            </tr>
+            <tr>
+              <td><strong>Sentry</strong></td>
+              <td>Functional Software, Inc.</td>
+              <td>Crash diagnostics (optional / disabled by default)</td>
+              <td><a href="https://sentry.io/privacy/" target="_blank" rel="noopener noreferrer">Sentry Privacy</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>8. Data Retention &amp; Deletion</h2>
+      <ul>
+        <li><strong>Local Data:</strong> Game scores, settings, and progress remain on your device until you clear them. You can delete all local data by going to <strong>Android Settings &rarr; Apps &rarr; Block Blast &rarr; Storage &amp; Cache &rarr; Clear Storage</strong>, or by uninstalling the application.</li>
+        <li><strong>Server Data:</strong> Because we do not operate a remote player server, database, or account system, we retain no copies of your personal game saves on our servers.</li>
+        <li><strong>Third-Party Retention:</strong> Data processed by Google AdMob, Firebase, or Sentry is retained according to their standard provider retention policies (e.g. Firebase standard event retention is 2 or 14 months).</li>
+      </ul>
+
+      <h2>9. Your Privacy Rights &amp; Choices</h2>
+      <h3>A. In-Game Telemetry Controls</h3>
+      <p>You can change your telemetry preference at any time:</p>
+      <ol>
+        <li>Open <strong>Settings</strong> from the Home screen.</li>
+        <li>Scroll down to the <strong>Privacy &amp; Data</strong> section.</li>
+        <li>Tap <strong>Allow Analytics</strong> to enable telemetry, or <strong>Deny Analytics</strong> to disable telemetry.</li>
+      </ol>
+      <p>Denying analytics has <strong>zero effect on puzzle gameplay</strong>. All modes, levels, sound settings, and offline play remain 100% functional.</p>
+
+      <h3>B. Android System Advertising Controls</h3>
+      <p>On your Android device, you can reset your Advertising ID or opt out of personalized advertising by visiting <strong>Settings &rarr; Google &rarr; Ads</strong> (or <strong>Privacy &rarr; Ads</strong>).</p>
+
+      <h3>C. Regional Disclosures (GDPR &amp; CCPA)</h3>
+      <ul>
+        <li><strong>GDPR / UK GDPR:</strong> Where applicable, our legal basis for optional telemetry and personalized advertising is your explicit <strong>consent</strong> (Art. 6(1)(a) GDPR). You have the right to withdraw consent at any time without penalty. You may also contact our support inbox regarding data subject inquiries.</li>
+        <li><strong>California (CCPA / CPRA):</strong> We do not sell personal information or share personal data with data brokers. We do not collect sensitive personal information.</li>
+      </ul>
+
+      <h2>10. Children's Privacy</h2>
+      <p>Block Blast is designed for a general audience and is not specifically directed at children under the age of 13 (or under 16 in the European Economic Area). We do not knowingly collect personal information from children. If you believe that a child has provided personal information to third-party services through the Game without parental consent, please contact our support team so that we can assist in investigating and resolving the issue.</p>
+
+      <h2>11. Security Limitations</h2>
+      <p>While we enforce data minimization and consent controls in code, please note that local device storage on rooted or modified devices is subject to the security limitations of the underlying Android operating system. We advise players to keep their devices updated with the latest operating system security patches.</p>
+
+      <h2>12. Policy Changes</h2>
+      <p>We may update this Privacy Policy as our game evolves or legal obligations require. Changes will be posted to this page with an updated "Last Updated" date. Significant changes will also be highlighted in release notes accompanying app updates.</p>
+
+      <h2>13. Contact Information</h2>
+      <p>For privacy questions, data inquiries, or feedback regarding this policy, please contact our support team at:</p>
+      <ul>
+        <li><strong>Official Support Email:</strong> <a href="mailto:supporteamreport@gmail.com">supporteamreport@gmail.com</a></li>
+        <li><strong>Studio / Developer Credit:</strong> TheBU</li>
+      </ul>
+      <p>Please do not include passwords or sensitive personal details in your email correspondence.</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-links">
+        <a href="index.html">Overview</a>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-of-use.html">Terms of Use</a>
+        <a href="support.html">Support &amp; Contact</a>
+      </div>
+      <p>&copy; 2026 TheBU. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
